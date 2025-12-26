@@ -12,14 +12,18 @@ class Solution:
             
             prevNum = -1
             for i in range(index, len(candidates)):
+                # Don't need to start with the same number multiple times
                 if candidates[i] == prevNum:
                     continue
+                # If we reach a number higher than the target, then this combination will never work
+                if candidates[i] > target:
+                    break
                 combination.append(candidates[i])
                 backtracking(i + 1, currTarget - candidates[i], combination)
+                # Remove the number from the list if we can no longer find combinations with it
                 combination.pop()
                 prevNum = candidates[i]
-            
-
+        
         backtracking(0, target, [])
         return result
 
